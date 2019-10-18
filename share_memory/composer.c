@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "song.h"
+#include <time.h>
 
 const char authors[][50] = {"Iron maiden","Pink Floyod", "Mamonas Assacinas", "Charlie Brown"};
 
@@ -22,8 +23,8 @@ int main()
 
 	//cout<<"Write Data : ";
 	//gets(str);
-
-  printf("Data written in memory: %d\n",rand());
+	srand(time(NULL));
+  printf("Data written in memory: %d and this other %d\n",rand(),rand());
 
   song_t a ={"Feara of the dark","Iron maiden","Rock",437};
   songs->data[0] = a;
