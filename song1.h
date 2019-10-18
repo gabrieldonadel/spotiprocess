@@ -1,3 +1,5 @@
+int MAXSIZE =4;
+
 typedef struct song_str {
   long mesg_type;
   char title[50];

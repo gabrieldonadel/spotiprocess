@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
-#include <stdlib.h>
 
 #include "song.h"
 
@@ -17,26 +16,25 @@ int main()
     key_t key;
     int msgid;
 
-    songs_t *songs;
+    song_t song;
 
 
     key = ftok("spotiprocess", 65);
 
 
     msgid = msgget(key, 0666 | IPC_CREAT);
-printf("size of : %ld \n",  sizeof(songs));
 
-    msgrcv(msgid, &songs, sizeof(songs), 1, 0);
+
+  while ( msgrcv(msgid, &song, sizeof(song), 1, 0) != -1) {
 
     char duration[12];
-    //convertSecToMin(songs[0]->duration, duration);
+    convertSecToMin(song.duration, duration);
 
-    printf("Titulo: %s \n",  songs->data[0].title);
-    free(songs);
-    //printf("Autor: %s \n",songs[0]->author);
-    //printf("Gênero: %s \n",songs[0]->genre);
-    //printf("Duração: %s \n", duration);
-
+    printf("Titulo: %s \n",  song.title);
+    printf("Autor: %s \n",song.author);
+    printf("Gênero: %s \n",song.genre);
+    printf("Duração: %s \n", duration);
+}
     // to destroy the message queue
     //msgctl(msgid, IPC_RMID, NULL);
 
