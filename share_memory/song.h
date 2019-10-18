@@ -8,6 +8,6 @@ typedef struct song_str {
 } song_t;
 
 typedef struct songs_str {
-  long mesg_type;
+  int current_song;
   song_t data[4];
 } songs_t;

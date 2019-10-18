@@ -5,20 +5,23 @@
 #include <stdlib.h>
 #include "song.h"
 #include <time.h>
+#include <string.h>
+#include <unistd.h>
 
 const int CHAR_SIZE = 200;
-const char authors[][CHAR_SIZE] = {"Iron maiden","Pink Floyod", "Mamonas Assacinas", "Charlie Brown"};
+char authors[][200] = {"Iron maiden","Pink Floyod", "Mamonas Assassinas", "Charlie Brown"};
+char titles[][200] = {"Fear of the dark","In the end", "Pelados em Santos", "Zóio de lula", "Gimme o anel"};
+char genres[][200] = {"Rock","Samba", "Funk", "Pagode", "Foró", "Sertanejo universitário", "Gospel"};
 
-song_t randomSong(){
-	char title[CHAR_SIZE];
-	char author[CHAR_SIZE];
-	char genre[CHAR_SIZE];
-	int duration = 600;
+song_t randomSong(){ 
+	int duration = (int) rand()%(sizeof(authors)/CHAR_SIZE);
 
-	sprintf(author, "%s",authors[rand()%(sizeof(authors)/CHAR_SIZE)]);
+	song_t s;
 
-	printf("author random %s\n",author);
-	song_t s = {"t",author,"genre", duration};
+ 	strcpy(s.title,titles[rand()%(sizeof(titles)/CHAR_SIZE)]);
+	s.duration= duration;
+	strcpy(s.genre,genres[rand()%(sizeof(genres)/CHAR_SIZE)]);
+	strcpy(s.author,authors[rand()%(sizeof(authors)/CHAR_SIZE)]); 
 	return s;
 }
 
@@ -32,25 +35,27 @@ int main()
 	int shmid = shmget(key,1024,0666|IPC_CREAT);
 
 	// shmat to attach to shared memory
-	//char *str = (char*) shmat(shmid,(void*)0,0);
-
-  songs_t *songs  = (songs_t*) shmat(shmid,(void*)0,0);
+	 
+  	songs_t *songs  = (songs_t*) shmat(shmid,(void*)0,0);
 
 	//cout<<"Write Data : ";
 	//gets(str);
 
 	srand(time(NULL));
-  printf("Data written in memory: %d and this other %d\n",rand(),rand());
-
-  song_t a = randomSong();//{"Feara of the dark","Iron maiden","Rock",437};
-
-    printf("Titulo: %d \n",  a.author);
-  songs->data[0] = a;
+  	printf("Data written in memory: %d and this other %d\n",rand(),rand());
+	for(;;){
+	songs->current_song= ((songs->current_song+1)%4);
+  	songs->data[0] = (song_t)randomSong();
+  	songs->data[1] = (song_t)randomSong();
+  	songs->data[2] = (song_t)randomSong();
+  	songs->data[3] = (song_t)randomSong();
+	  sleep(1);
+	}
 
 	printf("Data written in memory: %lu\n",(sizeof(authors)/CHAR_SIZE));
 
 	//detach from shared memory
-	//shmdt(songs);
+	shmdt(songs);
 
 	return 0;
 }
