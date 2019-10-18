@@ -1,4 +1,6 @@
-typedef struct song_str { 
+const int MAXSIZE = 4;
+
+typedef struct song_str {
   char title[50];
   char author[50];
   char genre[40];

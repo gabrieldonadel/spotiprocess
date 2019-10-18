@@ -1,3 +1,5 @@
+int MAXSIZE =4;
+
 typedef struct song_str {
   long mesg_type;
   char title[50];
@@ -5,3 +7,8 @@ typedef struct song_str {
   char genre[40];
   int duration;
 } song_t;
+
+typedef struct songs_str {
+  long mesg_type;
+  song_t data[MAXSIZE];
+} songs_t;

@@ -2,7 +2,10 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "song.h"
+
+const char authors[][50] = {"Iron maiden","Pink Floyod", "Mamonas Assacinas", "Charlie Brown"};
 
 int main()
 {
@@ -19,13 +22,20 @@ int main()
 
 	//cout<<"Write Data : ";
 	//gets(str);
+
+  printf("Data written in memory: %d\n",rand());
+
   song_t a ={"Feara of the dark","Iron maiden","Rock",437};
   songs->data[0] = a;
 
-	printf("Data written in memory: %s\n",a.title);
+	printf("Data written in memory: %s\n",authors[1]);
 
 	//detach from shared memory
 	shmdt(songs);
 
 	return 0;
 }
+
+//song_t randomSong(){
+
+//}
