@@ -15,7 +15,9 @@ int main()
 	//char *str = (char*) shmat(shmid,(void*)0,0);
     songs_t *songs  = (songs_t*) shmat(shmid,(void*)0,0);
 
-	printf("Data read from memory: %s\n",songs->data[0].title);
+	printf("Titulo: %s \n",songs->data[0].title);
+	printf("Autor: %s \n", songs->data[0].author);
+  printf("Gênero: %s \n",songs->data[0].genre);
 
 	//detach from shared memory
 	shmdt(songs);

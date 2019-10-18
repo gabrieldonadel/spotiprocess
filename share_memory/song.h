@@ -1,9 +1,9 @@
 const int MAXSIZE = 4;
 
 typedef struct song_str {
-  char title[50];
-  char author[50];
-  char genre[40];
+  char title[200];
+  char author[200];
+  char genre[200];
   int duration;
 } song_t;
 
