@@ -30,10 +30,12 @@ int main()
     char duration[12];
     convertSecToMin(song.duration, duration);
 
-    printf("Titulo: %s \n",  song.title);
-    printf("Autor: %s \n",song.author);
-    printf("Gênero: %s \n",song.genre);
-    printf("Duração: %s \n", duration);
+    printf("#######################################");
+    printf("\n%-12s%-25s%2s",  "# Titulo: ",song.title, " #");
+    printf("\n%-12s%-25s%2s","# Autor: ",song.author," #");
+    printf("\n%-13s%-25s%2s","# Gênero: ",song.genre," #");
+    printf("\n%-14s%-25s%2s","# Duração: ", duration," #");
+    printf("\n#######################################\n\n");
 }
     // to destroy the message queue
     //msgctl(msgid, IPC_RMID, NULL);
