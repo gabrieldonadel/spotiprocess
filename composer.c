@@ -45,7 +45,7 @@ void * sendRandomSong(void* thread){
 	  song_t song = randomSong();
 	  float sleep_time = (rand()%500)/100.0;
 	  sleep(sleep_time);
-	  msgsnd(msgid, &song, sizeof(song), 0);
+	  msgsnd(msgid, &song, sizeof(song)-sizeof(long), 0);
 
 		printf("Thread %d produziu %s e demorou %f segundos \n", a, song.title,sleep_time);
 
